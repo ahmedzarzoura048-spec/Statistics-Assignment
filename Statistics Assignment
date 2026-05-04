@@ -27,7 +27,6 @@ class Program
         Console.WriteLine($"Variance: {variance:F2}");
         Console.WriteLine($"Standard Deviation: {stdDev:F2}");
 
-        // Outlier detection
         double q1 = data[data.Length / 4];
         double q3 = data[(data.Length * 3) / 4];
         double iqr = q3 - q1;
