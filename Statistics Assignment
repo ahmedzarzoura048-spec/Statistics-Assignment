@@ -1,0 +1,45 @@
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        double[] data = { 115, 182, 191, 31, 196, 1099, 5, 172, 10, 179, 83, 21, 20, 21, 186, 177, 195, 193, 188, 199, 62, 109, 105, 183, 110 };
+
+        Array.Sort(data);
+
+        double mean = data.Average();
+        double median = data[data.Length / 2];
+        double min = data.Min();
+        double max = data.Max();
+        double range = max - min;
+
+        double variance = data.Sum(x => Math.Pow(x - mean, 2)) / (data.Length - 1);
+        double stdDev = Math.Sqrt(variance);
+
+        Console.WriteLine("=== Basic Statistics ===");
+        Console.WriteLine($"Mean: {mean:F2}");
+        Console.WriteLine($"Median: {median}");
+        Console.WriteLine($"Minimum: {min}");
+        Console.WriteLine($"Maximum: {max}");
+        Console.WriteLine($"Range: {range}");
+        Console.WriteLine($"Variance: {variance:F2}");
+        Console.WriteLine($"Standard Deviation: {stdDev:F2}");
+
+        // Outlier detection
+        double q1 = data[data.Length / 4];
+        double q3 = data[(data.Length * 3) / 4];
+        double iqr = q3 - q1;
+
+        double lowerBound = q1 - 1.5 * iqr;
+        double upperBound = q3 + 1.5 * iqr;
+
+        Console.WriteLine("\n=== Outliers ===");
+        foreach (double x in data)
+        {
+            if (x < lowerBound || x > upperBound)
+                Console.WriteLine($"{x} is an outlier");
+        }
+    }
+}
